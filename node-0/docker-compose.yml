@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    messenger:
+        restart: always
+        build:
+            context: ../
+            dockerfile: docker/Dockerfile
+        env_file: env.conf
+        ports:
+            - "80:8080"
+        links:
+            - redis
+  # Docker swarn configuration.
+  #    deploy:
+  #      replicas: 2
+  #      resources:
+  #        limits:
+  #          cpus: "0.1"
+  #          memory: 150M
+
+    redis:
+        image: 'redis:latest'
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        ports:
+            - "6379:6379"

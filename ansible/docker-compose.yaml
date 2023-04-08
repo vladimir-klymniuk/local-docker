@@ -1,0 +1,85 @@
+version: "3.8"
+
+services:
+
+    ansible:
+        build:
+            dockerfile: ansible/Dockerfile
+        networks:
+            - bookshelf
+
+    bookshelf0:
+        build:
+            dockerfile: server/Dockerfile
+            context: .
+        ports:
+            - "23:22"
+        networks:
+            - bookshelf          
+
+    bookshelf1:
+        build:
+            dockerfile: server/Dockerfile
+            context: .
+        ports:
+            - "24:22"
+        networks:
+            - bookshelf
+
+    bookshelf2:
+      build:
+        dockerfile: server/Dockerfile
+        context: .
+      ports:
+        - "25:22"
+
+    bookshelf33:
+      build:
+        dockerfile: server/Dockerfile
+        context: .
+      ports:
+        - "26:22"
+
+    bookshelf44:
+      build:
+        dockerfile: server/Dockerfile
+        context: .
+      ports:
+        - "27:22"
+      networks:
+          - bookshelf
+
+    bookshelf3:
+        build:
+            dockerfile: server/Dockerfile
+            context: .
+        ports:
+            - "26:22"
+        networks:
+            - bookshelf
+
+    bookshelf4:
+        build:
+            dockerfile: server/Dockerfile
+            context: .
+        ports:
+            - "27:22"
+        networks:
+            - bookshelf
+  # nginx:
+  #     image: nginx:latest
+  #     volumes:
+  #         - ./nginx/ssl:/etc/nginx/ssl
+  #         - ./nginx/logs:/var/log/nginx
+  #         - ./nginx/upstream.conf:/etc/nginx/conf.d/default.conf
+  #         - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  #     ports:
+  #         - "${NGINX_PORT}:80"
+  #     networks:
+  #         - backend
+
+# networks:
+networks:
+    bookshelf:
+        driver: bridge
+   
